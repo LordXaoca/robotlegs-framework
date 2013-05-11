@@ -5,13 +5,13 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-package robotlegs.bender.framework.api
+package robotlegs.bender.extensions.async
 {
 
 	public interface IPromise
 	{
 		function then(onResolved:Function = null, onRejected:Function = null):IPromise;
 
-		function fail(onRejected:Function):IPromise;
+		function onReject(onRejected:Function):IPromise;
 	}
 }

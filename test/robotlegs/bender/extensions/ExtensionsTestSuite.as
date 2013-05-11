@@ -7,6 +7,7 @@
 
 package robotlegs.bender.extensions
 {
+	import robotlegs.bender.extensions.async.AsyncTestSuite;
 	import robotlegs.bender.extensions.commandCenter.CommandCenterExtensionTestSuite;
 	import robotlegs.bender.extensions.contextView.ContextViewExtensionTestSuite;
 	import robotlegs.bender.extensions.directCommandMap.DirectCommandMapExtensionTestSuite;
@@ -29,6 +30,8 @@ package robotlegs.bender.extensions
 		/*============================================================================*/
 		/* Public Properties                                                          */
 		/*============================================================================*/
+
+		public var async:AsyncTestSuite;
 
 		public var commandMapExtension:CommandCenterExtensionTestSuite;
 

@@ -5,10 +5,8 @@
 //  in accordance with the terms of the license agreement accompanying it. 
 //------------------------------------------------------------------------------
 
-package robotlegs.bender.framework.impl
+package robotlegs.bender.extensions.async
 {
-	import robotlegs.bender.framework.api.IPromise;
-
 	public class Deferred implements IPromise
 	{
 
@@ -18,6 +16,10 @@ package robotlegs.bender.framework.impl
 
 		private const pending:Array = [];
 
+		private var onResolved:Function;
+
+		private var onRejected:Function;
+
 		private var processed:Boolean;
 
 		private var completed:Boolean;
@@ -25,10 +27,6 @@ package robotlegs.bender.framework.impl
 		private var completionAction:String;
 
 		private var completionValue:*;
-
-		private var onResolved:Function;
-
-		private var onRejected:Function;
 
 		/*============================================================================*/
 		/* Constructor                                                                */
@@ -46,16 +44,16 @@ package robotlegs.bender.framework.impl
 
 		public function then(onResolved:Function = null, onRejected:Function = null):IPromise
 		{
-			if (onResolved as Boolean || onRejected as Boolean)
+			if (onResolved != null || onRejected != null)
 			{
 				const deferred:Deferred = new Deferred(onResolved, onRejected);
-				NextTick.call(schedule, [deferred]);
+				Tick.nextTick(schedule, [deferred]);
 				return deferred;
 			}
 			return this;
 		}
 
-		public function fail(onRejected:Function):IPromise
+		public function onReject(onRejected:Function):IPromise
 		{
 			return then(null, onRejected);
 		}
@@ -93,18 +91,16 @@ package robotlegs.bender.framework.impl
 			{
 				if (closure)
 				{
-					if (closure.length == 1)
-					{
-						const result:* = closure(value);
-						if (result !== undefined)
-							value = result;
-					}
-					else
-					{
-						closure();
-					}
+					// Allow handlers without arguments
+					const result:* = closure.length == 0
+							? closure()
+							: closure(value);
+					// Do not overwrite the value for Void returns
+					if (result !== undefined)
+						value = result;
 				}
-				value && "then" in value
+				// Softly check for a returned Promise
+				value && "then" in value && value.then is Function
 					? value.then(completeResolved, completeRejected)
 					: completeResolved(value);
 			}
@@ -138,78 +134,5 @@ package robotlegs.bender.framework.impl
 		{
 			throw error;
 		}
-	}
-}
-
-import flash.display.Sprite;
-import flash.events.Event;
-
-class NextTick
-{
-
-	/*============================================================================*/
-	/* Private Static Properties                                                  */
-	/*============================================================================*/
-
-	private static const SPR:Sprite = new Sprite();
-
-	private static const Q:Array = [];
-
-	/*============================================================================*/
-	/* Public Static Functions                                                    */
-	/*============================================================================*/
-
-	public static function call(closure:Function, args:Array = null):void
-	{
-		Q.push(new Scope(closure, args));
-		Q.length == 1 && SPR.addEventListener(Event.ENTER_FRAME, run);
-	}
-
-	/*============================================================================*/
-	/* Private Static Functions                                                   */
-	/*============================================================================*/
-
-	private static function run(e:Event):void
-	{
-		if (Q.length == 0)
-		{
-			SPR.removeEventListener(Event.ENTER_FRAME, run);
-		}
-		else
-		{
-			for each (var scope:Scope in Q.splice(0))
-				scope.execute();
-		}
-	}
-}
-
-class Scope
-{
-
-	/*============================================================================*/
-	/* Private Properties                                                         */
-	/*============================================================================*/
-
-	private var _closure:Function;
-
-	private var _args:Array;
-
-	/*============================================================================*/
-	/* Constructor                                                                */
-	/*============================================================================*/
-
-	public function Scope(closure:Function, args:Array)
-	{
-		_closure = closure;
-		_args = args;
-	}
-
-	/*============================================================================*/
-	/* Public Functions                                                           */
-	/*============================================================================*/
-
-	public function execute():void
-	{
-		_args ? _closure.apply(null, _args) : _closure();
 	}
 }
