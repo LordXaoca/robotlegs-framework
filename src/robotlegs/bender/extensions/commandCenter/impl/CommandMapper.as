@@ -114,5 +114,13 @@ package robotlegs.bender.extensions.commandCenter.impl
 			_mapping.setPayloadInjectionEnabled(value);
 			return this;
 		}
+
+		/**
+		 * @inheritDoc
+		 */
+		public function toGroup(name : String) : ICommandConfigurator {
+			_mapping.setGroup(name);
+			return this;
+		}
 	}
 }

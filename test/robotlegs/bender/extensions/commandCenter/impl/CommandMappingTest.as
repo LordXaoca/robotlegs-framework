@@ -120,5 +120,12 @@ package robotlegs.bender.extensions.commandCenter.impl
 		    mapping.setPayloadInjectionEnabled(false);
 			assertThat(mapping.payloadInjectionEnabled, isFalse());
 		}
+
+		[Test]
+		public function group_mapping():void
+		{
+		    mapping.setGroup("test");
+			assertThat(mapping.groupName, equalTo("test"));
+		}
 	}
 }

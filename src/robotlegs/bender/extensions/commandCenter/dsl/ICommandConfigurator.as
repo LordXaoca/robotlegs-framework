@@ -47,5 +47,12 @@ package robotlegs.bender.extensions.commandCenter.dsl
 		 * @return Self
 		 */
 		function withPayloadInjection(value:Boolean = true):ICommandConfigurator;
+
+		/**
+		 * Specific command's identifier, further we can unmap all commands with the same groupName
+		 * @param name
+		 * @return Self
+		 */
+		function toGroup(name : String) : ICommandConfigurator;
 	}
 }

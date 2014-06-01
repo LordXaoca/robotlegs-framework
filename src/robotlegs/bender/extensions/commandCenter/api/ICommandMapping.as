@@ -7,7 +7,6 @@
 
 package robotlegs.bender.extensions.commandCenter.api
 {
-
 	/**
 	 * @private
 	 */
@@ -39,6 +38,14 @@ package robotlegs.bender.extensions.commandCenter.api
 		function get fireOnce():Boolean;
 
 		/**
+		 * Command "group" identifier.
+		 *
+		 * @see robotlegs.bender.extensions.commandCenter.dsl.ICommandConfigurator#toGroup()
+		 * @see robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap#unmapGroup()
+		 */
+		function get groupName() : String;
+
+		/**
 		 * Supply the payload values via instance injection
 		 */
 		function get payloadInjectionEnabled():Boolean;
@@ -67,5 +74,15 @@ package robotlegs.bender.extensions.commandCenter.api
 		 * Supply the payload values via instance injection
 		 */
 		function setPayloadInjectionEnabled(value:Boolean):ICommandMapping;
+
+		/**
+		 * Setup specific command's identifier, further we can unmap all commands with the same groupName
+		 * @param name
+		 * @return Self
+		 *
+		 * @see robotlegs.bender.extensions.commandCenter.dsl.ICommandConfigurator#toGroup()
+		 * @see robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap#unmapGroup()
+		 */
+		function setGroup(name : String) : void;
 	}
 }

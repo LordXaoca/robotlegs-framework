@@ -9,6 +9,7 @@ package robotlegs.bender.extensions.commandCenter.impl
 {
 	import flash.utils.Dictionary;
 	import robotlegs.bender.extensions.commandCenter.api.ICommandTrigger;
+	import robotlegs.bender.extensions.eventCommandMap.impl.EventCommandTrigger;
 
 	/**
 	 * @private
@@ -60,6 +61,15 @@ package robotlegs.bender.extensions.commandCenter.impl
 		public function removeTrigger(... params):ICommandTrigger
 		{
 			return destroyTrigger(getKey(params));
+		}
+
+		/**
+		 * @private
+		 */
+		public function unmapGroup(groupName : String) : void {
+			for each (var trigger : EventCommandTrigger in _triggers) {
+				trigger.unmapGroup(groupName);
+			}
 		}
 
 		/*============================================================================*/

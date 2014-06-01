@@ -37,5 +37,11 @@ package robotlegs.bender.extensions.eventCommandMap.api
 		 * @return Self
 		 */
 		function addMappingProcessor(handler:Function):IEventCommandMap;
+
+		/**
+		 * Unmap all commands with specified groupName.
+		 * @param groupName
+		 */
+		function unmapGroup(groupName : String) : void;
 	}
 }

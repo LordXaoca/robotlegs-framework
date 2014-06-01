@@ -81,6 +81,13 @@ package robotlegs.bender.extensions.eventCommandMap.impl
 			return this;
 		}
 
+		/**
+		 * @inheritDoc
+		 */
+		public function unmapGroup(groupName : String) : void {
+			_triggerMap.unmapGroup(groupName);
+		}
+
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/

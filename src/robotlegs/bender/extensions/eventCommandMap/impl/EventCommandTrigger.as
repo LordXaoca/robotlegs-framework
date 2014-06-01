@@ -10,6 +10,7 @@ package robotlegs.bender.extensions.eventCommandMap.impl
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	import robotlegs.bender.extensions.commandCenter.api.ICommandExecutor;
+	import robotlegs.bender.extensions.commandCenter.api.ICommandMapping;
 	import robotlegs.bender.extensions.commandCenter.api.ICommandMappingList;
 	import robotlegs.bender.extensions.commandCenter.api.ICommandTrigger;
 	import robotlegs.bender.extensions.commandCenter.impl.CommandExecutor;
@@ -87,6 +88,17 @@ package robotlegs.bender.extensions.eventCommandMap.impl
 		public function deactivate():void
 		{
 			_dispatcher.removeEventListener(_type, eventHandler);
+		}
+
+		/**
+		 * @private
+		 */
+		public function unmapGroup(groupName : String) : void {
+			for each (var mapping : ICommandMapping in _mappings.getList()) {
+				if (mapping.groupName == groupName) {
+					_mappings.removeMapping(mapping);
+				}
+			}
 		}
 
 		public function toString():String

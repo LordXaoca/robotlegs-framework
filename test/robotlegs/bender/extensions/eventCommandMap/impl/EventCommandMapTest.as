@@ -439,6 +439,20 @@ package robotlegs.bender.extensions.eventCommandMap.impl
 			assertThat(callCount, equalTo(1));
 		}
 
+		[Test]
+		public function group_mapping() : void {
+			var executeCount:uint = 0;
+			var groupName : String = "test";
+			injector.map(Function, 'executeCallback').toValue(function():void
+			{
+				executeCount++;
+			});
+			subject.map(SupportEvent.TYPE1, SupportEvent).toCommand(CallbackCommand).toGroup(groupName);
+			subject.unmapGroup(groupName);
+			dispatcher.dispatchEvent(new SupportEvent(SupportEvent.TYPE1));
+			assertThat(executeCount, equalTo(0));
+		}
+
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/

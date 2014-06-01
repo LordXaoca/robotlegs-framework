@@ -79,6 +79,15 @@ package robotlegs.bender.extensions.commandCenter.impl
 			return _payloadInjectionEnabled;
 		}
 
+		private var _groupName:String;
+
+		/**
+		 * @inheritDoc
+		 */
+		public function get groupName() : String {
+			return _groupName;
+		}
+
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
@@ -139,6 +148,13 @@ package robotlegs.bender.extensions.commandCenter.impl
 		{
 			_payloadInjectionEnabled = value;
 			return this;
+		}
+
+		/**
+		 * @inheritDoc
+		 */
+		public function setGroup(name : String) : void {
+			_groupName = name;
 		}
 
 		public function toString():String
