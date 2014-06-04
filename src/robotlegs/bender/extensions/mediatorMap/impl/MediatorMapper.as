@@ -82,6 +82,26 @@ package robotlegs.bender.extensions.mediatorMap.impl
 			}
 		}
 
+		/**
+		 * @inheritDoc
+		 */
+		public function unmapGroup(groupName : String) : void
+		{
+			var mappingsToDelete : Vector.<IMediatorMapping> = new <IMediatorMapping>[];
+			var mapping : IMediatorMapping;
+			for each (mapping in _mappings)
+			{
+				if (mapping.groupName == groupName)
+				{
+					mappingsToDelete.push(mapping);
+				}
+			}
+			for each (mapping in mappingsToDelete)
+			{
+				deleteMapping(mapping);
+			}
+		}
+
 		/*============================================================================*/
 		/* Private Functions                                                          */
 		/*============================================================================*/

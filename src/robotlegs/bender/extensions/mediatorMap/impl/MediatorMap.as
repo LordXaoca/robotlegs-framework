@@ -91,6 +91,17 @@ package robotlegs.bender.extensions.mediatorMap.impl
 		/**
 		 * @inheritDoc
 		 */
+		public function unmapGroup(groupName : String) : void
+		{
+			for each (var mapper : IMediatorUnmapper in _mappers)
+			{
+				mapper.unmapGroup(groupName)
+			}
+		}
+
+		/**
+		 * @inheritDoc
+		 */
 		public function handleView(view:DisplayObject, type:Class):void
 		{
 			_viewHandler.handleView(view, type);

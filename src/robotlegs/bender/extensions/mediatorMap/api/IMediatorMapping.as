@@ -38,5 +38,10 @@ package robotlegs.bender.extensions.mediatorMap.api
 		 * Should the mediator be removed when the mediated item looses scope?
 		 */
 		function get autoRemoveEnabled():Boolean;
+
+		/**
+		 * Mapping group identifier
+		 */
+		function get groupName() : String;
 	}
 }

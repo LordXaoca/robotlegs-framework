@@ -32,5 +32,12 @@ package robotlegs.bender.extensions.mediatorMap.impl
 		public function fromAll():void
 		{
 		}
+
+		/**
+		 * @private
+		 */
+		public function unmapGroup(groupName : String) : void
+		{
+		}
 	}
 }

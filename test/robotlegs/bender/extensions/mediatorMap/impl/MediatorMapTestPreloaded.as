@@ -275,6 +275,41 @@ package robotlegs.bender.extensions.mediatorMap.impl
 		{
 			mediatorMap.unmap(Sprite).fromMediator(ExampleMediator);
 		}
+
+		[Test]
+		public function unmap_group_for_strict_mapping() : void {
+			var groupName : String = "test";
+			mediatorMap.map(Sprite).toMediator(ExampleMediator).toGroup(groupName);
+			mediatorMap.unmapGroup(groupName);
+
+			mediatorMap.handleView(new Sprite(), null);
+
+			const expectedNotifications:Vector.<String> = new <String>[];
+			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+		}
+
+		[Test]
+		public function unmap_group_for_type_matcher() : void {
+			var groupName : String = "test";
+			mediatorMap.mapMatcher(new TypeMatcher().allOf(DisplayObject)).toMediator(ExampleDisplayObjectMediator).toGroup(groupName);
+			mediatorMap.unmapGroup(groupName);
+
+			mediatorMap.handleView(new Sprite(), null);
+
+			const expectedNotifications:Vector.<String> = new <String>[];
+			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+		}
+
+		[Test]
+		public function unmap_one_group_doesnt_affect_another() : void {
+			mediatorMap.map(Sprite).toMediator(ExampleMediator).toGroup("firstGroup");
+			mediatorMap.unmapGroup("secondGroup");
+
+			mediatorMap.handleView(new Sprite(), null);
+
+			const expectedNotifications:Vector.<String> = new <String>['ExampleMediator'];
+			assertEqualsVectorsIgnoringOrder(expectedNotifications, mediatorWatcher.notifications);
+		}
 	}
 }
 

@@ -48,6 +48,13 @@ package robotlegs.bender.extensions.mediatorMap.api
 		function unmap(type:Class):IMediatorUnmapper;
 
 		/**
+		 * Removes all mappings that was linked to specified group name.
+		 * No error will be thrown if there isn't a mapping to remove.
+		 * @param groupName Mapping group's name that would be key.
+		 */
+		function unmapGroup(groupName : String) : void;
+
+		/**
 		 * Mediates an item directly. If the item matches any mapped matchers or types then it will be mediated according to those mappings.
 		 * @param item The item to create mediators for.
 		 */

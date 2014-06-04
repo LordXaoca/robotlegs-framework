@@ -23,5 +23,11 @@ package robotlegs.bender.extensions.mediatorMap.dsl
 		 * Unmaps all mediator mappings for this matcher
 		 */
 		function fromAll():void;
+
+		/**
+		 * Unmap all mediator mappings that linked to specified group
+		 * @param groupName Mapping group identifier
+		 */
+		function unmapGroup(groupName : String) : void;
 	}
 }

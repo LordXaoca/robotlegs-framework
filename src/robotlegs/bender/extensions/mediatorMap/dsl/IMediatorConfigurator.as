@@ -37,5 +37,12 @@ package robotlegs.bender.extensions.mediatorMap.dsl
 		 * @return Self
 		 */
 		function autoRemove(value:Boolean = true):IMediatorConfigurator;
+
+		/**
+		 * Add mapping to mapping group, futher whole group can be instantly unmapped with this identifier
+		 * @param groupName Mapping group identifier
+		 * @return Self
+		 */
+		function toGroup(groupName : String):IMediatorConfigurator;
 	}
 }

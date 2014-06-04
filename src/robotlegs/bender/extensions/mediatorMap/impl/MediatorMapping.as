@@ -71,6 +71,15 @@ package robotlegs.bender.extensions.mediatorMap.impl
 			return _autoRemoveEnabled;
 		}
 
+		private var _groupName : String = "";
+
+		/**
+		 * @inheritDoc
+		 */
+		public function get groupName() : String {
+			return _groupName;
+		}
+
 		/*============================================================================*/
 		/* Constructor                                                                */
 		/*============================================================================*/
@@ -112,6 +121,15 @@ package robotlegs.bender.extensions.mediatorMap.impl
 		public function autoRemove(value:Boolean = true):IMediatorConfigurator
 		{
 			_autoRemoveEnabled = value;
+			return this;
+		}
+
+		/**
+		 * @inheritDoc
+		 */
+		public function toGroup(groupName : String):IMediatorConfigurator
+		{
+			_groupName = groupName;
 			return this;
 		}
 	}
